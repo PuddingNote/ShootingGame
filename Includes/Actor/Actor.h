@@ -2,16 +2,8 @@
 
 #include "Core.h"
 #include "Math/Vector2.h"
+#include "Math/Color.h"
 #include "RTTI.h"
-
-enum class Color : int
-{
-	Blue = 1,
-	Green = 2,
-	Red = 4,
-	White = Red | Green | Blue,
-	Intensity = 8
-};
 
 class Level;
 class Engine_API Actor : public RTTI
@@ -21,7 +13,7 @@ class Engine_API Actor : public RTTI
 
 public:
 	Actor(
-		const char image = ' ',
+		const char* image = "",
 		Color color = Color::White,
 		const Vector2& position = Vector2::Zero
 	);
@@ -38,6 +30,9 @@ public:
 	void SetPosition(const Vector2& newPosition);
 	Vector2 Position() const;
 
+	// 문자열 길이 반환
+	int Width() const;
+
 	// Sorting Order 설정
 	void SetSortingOrder(unsigned int sortingOrder);
 
@@ -45,18 +40,26 @@ public:
 	void SetOwner(Level* newOwner);
 	Level* GetOwner();
 
+	// 객체 삭제 함수
+	void Destroy();
+
 	// 게임 종료 요청 함수
 	void QuitGame();
 
-private:
+protected:
 	Vector2 position;				// 개체의 위치
-	
-	char image = ' ';				// 그릴 값
+				
+	char* image = nullptr;			// 그릴 값
+	int width = 0;					// 문자열 길이
+
 	Color color;					// 텍스트 색상 값
 
 	bool hasBeganPlay = false;		// BeginPlay 호출 확인
 
 	unsigned int sortingOrder = 0;	// 정렬 순서
+
+	bool isActive = true;			// 액터가 활성 상태인지 알려주는 변수
+	bool isExpired = false;			// 삭제 요청됐는지 알려주는 변수
 
 	Level* owner = nullptr;			// 소유 레벨
 };

@@ -25,7 +25,10 @@ public:
 
 	void AddLevel(Level* newLevel);
 
-	static Engine& Get();
+	static Engine& Get();	// ½Ì±ÛÅæ Á¢±Ù ÇÔ¼ö
+
+	int Width() const;
+	int Height() const;
 
 private:
 	void BeginPlay();
