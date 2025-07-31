@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Level/Level.h"
+#include "Utils/Timer.h"
 
 /*
 * Todo: 게임 레벨의 책임
@@ -24,5 +25,6 @@ public:
 	virtual void Render() override;
 
 private:
-
+	// 적 생성시 시간 계산을 위한 타이머
+	Timer enemySpawnTimer;
 };
